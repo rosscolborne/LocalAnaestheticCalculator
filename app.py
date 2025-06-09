@@ -19,13 +19,16 @@ mL_to_mg_b = (concentration_b/100)*1000
 bup_admin = st.number_input("Administered so far (mL)", key=7) * mL_to_mg_b
 
 epi = st.checkbox('Epinephrine', key=3)
-use_equal_volumes = st.checkbox('I want to give equal volumes of each drug', key=4)
+use_equal_volumes = st.checkbox('I want to give a 50:50 solution', key=4)
 max_lid_vol = max_dose_lid_kg[epi]*weight / mL_to_mg_a
 max_bup_vol = max_dose_bup_kg[epi]*weight / mL_to_mg_b
 
 if use_equal_volumes:
     #ratio = 0.5
     value = max_lid_vol / (max_bup_vol + max_lid_vol)
+    sol_admin = st.number_input("Amount of solution administered so far (mL)", key=8)
+    lid_admin += sol_admin/2*mL_to_mg_a
+    bup_admin += sol_admin/2*mL_to_mg_b
 else:
     #ratio = st.slider("Slide to adjust the amount of each drug", 0, 100, 50) / 100
     value = st.slider("Slide to adjust the amount of each drug", 0, 100, 50) / 100
@@ -35,7 +38,8 @@ percent_admin = 1 - lid_admin/max_dose_lid_kg[epi]/weight - bup_admin/max_dose_b
 
 lid = ((1-value)*(max_dose_lid_kg[epi]*weight)) / mL_to_mg_a * percent_admin
 bup = (value*(max_dose_bup_kg[epi]*weight)) / mL_to_mg_b * percent_admin
-st.text(f"You can safely administer an additional {math.floor(lid)} mL of Lidocaine and {math.floor(bup)} mL of Bupivicaine.")
 
 if use_equal_volumes:
-    st.text(f"If you have a 50:50 Lidocaine:Bupivicaine mixture, you can administer {math.floor(lid)+math.floor(bup)} mL of the solution.")
+    st.text(f"You can safely administer an additional {math.floor(lid)+math.floor(bup)} mL of the solution.")
+else:
+    st.text(f"You can safely administer an additional {math.floor(lid)} mL of Lidocaine and {math.floor(bup)} mL of Bupivicaine.")
