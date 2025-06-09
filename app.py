@@ -17,7 +17,7 @@ st.subheader("Bupivicaine")
 concentration_b = st.selectbox('Concentration (%)', [0.25, 0.5], key=2)
 mL_to_mg_b = (concentration_b/100)*1000
 bup_admin = st.number_input("Administered so far (mL)", key=7) * mL_to_mg_b
-
+st.markdown("---")
 epi = st.checkbox('Epinephrine', key=3)
 use_equal_volumes = st.checkbox('I want to give a 50:50 solution', key=4)
 max_lid_vol = max_dose_lid_kg[epi]*weight / mL_to_mg_a
