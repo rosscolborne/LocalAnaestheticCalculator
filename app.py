@@ -33,4 +33,4 @@ percent_admin = 1 - lid_admin/max_dose_lid_kg[epi]/weight - bup_admin/max_dose_b
 
 lid = ((1-value)*(max_dose_lid_kg[epi]*weight)) / mL_to_mg_a * percent_admin
 bup = (value*(max_dose_bup_kg[epi]*weight)) / mL_to_mg_b * percent_admin
-st.text(f"You can safely administer an additional {math.floor(lid*100)/100} mL of Lidocaine and {math.floor(bup*100)/100} mL of Bupivicaine")
+st.text(f"You can safely administer an additional {math.floor(lid)} mL of Lidocaine and {math.floor(bup)} mL of Bupivicaine")
