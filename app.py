@@ -5,21 +5,30 @@ max_dose_lid_kg = {False: 5, True: 7}
 max_dose_bup_kg = {False: 2.5, True: 3}
 
 weight = st.number_input("Patient Weight (kg)", key=5, value=80)
+use_equal_volumes = st.checkbox('I want to give a 50:50 solution', key=4)
+epi = st.checkbox('Epinephrine', key=3)
 
-st.text("\n")
+st.markdown("---")
+
 st.subheader("Lidocaine")
 concentration_a = st.selectbox('Concentration (%)', [1, 2], key=1)
 mL_to_mg_a = (concentration_a/100)*1000
-lid_admin = st.number_input("Administered so far (mL)", key=6) * mL_to_mg_a
+if not use_equal_volumes:
+    lid_admin = st.number_input("Administered so far (mL)", key=6) * mL_to_mg_a
+else:
+    lid_admin = 0
 
-st.text("\n")
+st.markdown("---")
+
 st.subheader("Bupivicaine")
 concentration_b = st.selectbox('Concentration (%)', [0.25, 0.5], key=2)
 mL_to_mg_b = (concentration_b/100)*1000
-bup_admin = st.number_input("Administered so far (mL)", key=7) * mL_to_mg_b
+if not use_equal_volumes:
+    bup_admin = st.number_input("Administered so far (mL)", key=7) * mL_to_mg_b
+else:
+    bup_admin = 0
 st.markdown("---")
-epi = st.checkbox('Epinephrine', key=3)
-use_equal_volumes = st.checkbox('I want to give a 50:50 solution', key=4)
+
 max_lid_vol = max_dose_lid_kg[epi]*weight / mL_to_mg_a
 max_bup_vol = max_dose_bup_kg[epi]*weight / mL_to_mg_b
 
