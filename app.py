@@ -18,8 +18,16 @@ mL_to_mg_b = (concentration_b/100)*1000
 bup_admin = st.number_input("Administered so far (mL)", key=7) * mL_to_mg_b
 
 epi = st.checkbox('Epinephrine', key=3)
+use_equal_volumes = st.checkbox('Use Equal Volumes', key=4)
 
-value = st.slider("", 0.0, 1.0, 0.5)
+if not use_equal_volumes:
+    value = st.slider("", 0.0, 1.0, 0.5)
+else:
+    max_lid_vol = max_dose_lid_kg[epi]*weight / mL_to_mg_a
+    max_bup_vol = max_dose_bup_kg[epi]*weight / mL_to_mg_b
+    value = max_lid_vol / (max_bup_vol+max_lid_vol)
+    
+
 percent_admin = 1 - lid_admin/max_dose_lid_kg[epi]/weight - bup_admin/max_dose_bup_kg[epi]/weight
 
 lid = ((1-value)*(max_dose_lid_kg[epi]*weight)) / mL_to_mg_a * percent_admin
