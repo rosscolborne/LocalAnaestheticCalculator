@@ -22,7 +22,7 @@ epi = st.checkbox('Epinephrine', key=3)
 use_equal_volumes = st.checkbox('I want to give equal volumes of each drug', key=4)
 
 if not use_equal_volumes:
-    value = st.slider("", 0.0, 1.0, 0.5)
+    value = st.slider("Slide to adjust the amount of each drug", 0.0, 1.0, 0.5)
 else:
     max_lid_vol = max_dose_lid_kg[epi]*weight / mL_to_mg_a
     max_bup_vol = max_dose_bup_kg[epi]*weight / mL_to_mg_b
